@@ -1,0 +1,60 @@
+{
+  "name": "@ishikawa-masashi/react-hooks",
+  "version": "0.0.1",
+  "main": "./dist/index.es.js",
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "clean": "rimraf dist types",
+    "watch": "tsc -w | vite build --watch",
+    "build": "tsc && vite build",
+    "build:lib": "yarn run clean && tsc && vite build --config vite.config.lib.ts",
+    "build:debug": "node --inspect-brk=5858 ./node_modules/.bin/vite build",
+    "test": "jest --env=jsdom"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@testing-library/react": "^12.0.0",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.9",
+    "jest": "^27.1.0",
+    "less": "^4.1.1",
+    "monaco-editor": "^0.27.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "resize-observer-polyfill": "^1.5.1",
+    "rimraf": "^3.0.2",
+    "sass": "^1.39.0",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2",
+    "vite": "^2.5.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "tsx"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/tests/**/*.test.tsx"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thzt/test-vite-lib"
+  },
+  "files": [
+    "*"
+  ]
+}
