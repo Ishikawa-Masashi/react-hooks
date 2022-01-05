@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
-import { useMount } from '../src/useMount';
+import { render } from '@testing-library/react';
+import { useMount } from '../src';
 
 describe('useMount', () => {
   it('fires a callback', () => {
