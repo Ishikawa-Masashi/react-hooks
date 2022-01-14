@@ -6,3 +6,4 @@ export * from './useHotkeys';
 export * from './usePrevious';
 export * from './useConst';
 export * from './useBoolean';
+export * from './useOnEvent';
