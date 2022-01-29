@@ -1,44 +1,44 @@
-import * as React from 'react';
-import { render } from '@testing-library/react';
-import { useConst } from '../src/useConst';
-import { validateHookValueNotChanged } from './testUtilities';
+import { renderHook } from '@testing-library/react-hooks';
+import { useConst } from '../src';
 
 describe('useConst', () => {
-  validateHookValueNotChanged(
-    'returns the same value with value initializer',
-    () => [useConst(Math.random())]
-  );
+  it('returns the same value with value initializer', () => {
+    const { result, rerender } = renderHook(() => useConst(Math.random()));
+    const firstResult = result.current;
 
-  validateHookValueNotChanged(
-    'returns the same value with function initializer',
-    () => [useConst(() => Math.random())]
-  );
+    rerender();
+
+    expect(result.current).toBe(firstResult);
+  });
+
+  it('returns the same value with function initializer', () => {
+    const { result, rerender } = renderHook(() =>
+      useConst(() => Math.random())
+    );
+    const firstResult = result.current;
+
+    rerender();
+
+    expect(result.current).toBe(firstResult);
+  });
 
   it('calls the function initializer only once', () => {
     const initializer = jest.fn(() => Math.random());
-    const TestComponent: React.FunctionComponent = () => {
-      const value = useConst(initializer);
-      return <div>{value}</div>;
-    };
-    const wrapper = render(<TestComponent />);
-    const firstValue = wrapper.container.textContent;
-    // Re-render the component
-    wrapper.rerender(<TestComponent />);
-    // Text should be the same
-    expect(wrapper.container.textContent).toBe(firstValue);
-    // Function shouldn't have been called again
+    const { result, rerender } = renderHook(() => useConst(initializer));
+    const firstResult = result.current;
+
+    rerender();
+
+    expect(result.current).toBe(firstResult);
     expect(initializer).toHaveBeenCalledTimes(1);
   });
 
   it('works with a function initializer which returns undefined', () => {
     const initializer = jest.fn(() => undefined);
-    const TestComponent: React.FunctionComponent = () => {
-      const value = useConst(initializer);
-      return <div>{value}</div>;
-    };
-    const wrapper = render(<TestComponent />);
-    // Re-render the component
-    wrapper.rerender(<TestComponent />);
+    const { rerender } = renderHook(() => useConst(initializer));
+
+    rerender();
+
     // Function shouldn't have been called again
     expect(initializer).toHaveBeenCalledTimes(1);
   });

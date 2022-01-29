@@ -1,23 +1,14 @@
-import * as React from 'react';
-import { render } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
 import { useMount } from '../src';
 
 describe('useMount', () => {
   it('fires a callback', () => {
     const onMount = jest.fn();
 
-    const TestComponent: React.FunctionComponent = () => {
-      useMount(() => {
-        onMount();
-      });
+    const result = renderHook(() => useMount(onMount));
 
-      return <>Test Component</>;
-    };
-
-    expect(onMount).toBeCalledTimes(0);
-    const wrapper = render(<TestComponent />);
-    expect(onMount).toBeCalledTimes(1);
-    wrapper.unmount();
-    expect(onMount).toBeCalledTimes(1);
+    expect(onMount).toHaveBeenCalledTimes(1);
+    result.unmount();
+    expect(onMount).toHaveBeenCalledTimes(1);
   });
 });
