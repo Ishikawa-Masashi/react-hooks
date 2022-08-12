@@ -21,7 +21,6 @@
     "@types/node": "^18.7.2",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "@vue/test-utils": "^2.0.2",
     "happy-dom": "^6.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -31,24 +30,6 @@
     "typescript": "^4.7.4",
     "vite": "^3.0.7",
     "vitest": "^0.21.1"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "tsx"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.json"
-      }
-    },
-    "testMatch": [
-      "**/tests/**/*.test.tsx"
-    ]
   },
   "repository": {
     "type": "git",
