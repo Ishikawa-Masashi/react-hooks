@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 export function useAnimationFrame(callback: () => void) {
   const requestRef = React.useRef<ReturnType<typeof requestAnimationFrame>>();

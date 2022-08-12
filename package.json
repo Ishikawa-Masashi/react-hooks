@@ -1,7 +1,7 @@
 {
   "name": "@ishikawa-masashi/react-hooks",
   "version": "0.0.2",
-  "main": "./dist/index.es.js",
+  "main": "./dist/index.mjs",
   "types": "./types/index.d.ts",
   "scripts": {
     "dev": "vite",
@@ -23,7 +23,6 @@
     "@types/react-dom": "^18.0.6",
     "@vue/test-utils": "^2.0.2",
     "happy-dom": "^6.0.4",
-    "jsdom": "^20.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "resize-observer-polyfill": "^1.5.1",
