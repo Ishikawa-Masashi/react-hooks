@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as ReactTestUtils from 'react-dom/test-utils';
 import { render } from '@testing-library/react';
 import { useUnmount } from '../src';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('useUnmount', () => {
   it('fires a callback', () => {
-    const onUnmount = jest.fn();
+    const onUnmount = vi.fn();
 
     const TestComponent: React.FunctionComponent = () => {
       useUnmount(() => {

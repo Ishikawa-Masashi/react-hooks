@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useConst } from '../src';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('useConst', () => {
   it('returns the same value with value initializer', () => {
@@ -23,7 +24,7 @@ describe('useConst', () => {
   });
 
   it('calls the function initializer only once', () => {
-    const initializer = jest.fn(() => Math.random());
+    const initializer = vi.fn(() => Math.random());
     const { result, rerender } = renderHook(() => useConst(initializer));
     const firstResult = result.current;
 
@@ -34,7 +35,7 @@ describe('useConst', () => {
   });
 
   it('works with a function initializer which returns undefined', () => {
-    const initializer = jest.fn(() => undefined);
+    const initializer = vi.fn(() => undefined);
     const { rerender } = renderHook(() => useConst(initializer));
 
     rerender();

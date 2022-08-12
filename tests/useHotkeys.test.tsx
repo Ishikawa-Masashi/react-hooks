@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { useHotkeys } from '../src';
-
-//  import fireKeydownEvent from '../src/helpers/fireKeydownEvent';
+import { test, describe, expect, afterEach, vi } from 'vitest';
 
 const fireKeydownEvent = (
   key?: string,
@@ -13,7 +12,7 @@ const fireKeydownEvent = (
 
 interface ComponentProps {
   hotkeys: string | string[];
-  callback: jest.Mock<any, [any]>;
+  callback: typeof vi.fn;
 }
 
 const setup = (
@@ -33,12 +32,12 @@ const setup = (
 
 // afterEach(cleanup);
 afterEach(() => {
-  jest.resetAllMocks();
+  vi.resetAllMocks();
 });
 
 describe('useHotkeys: basic', () => {
   test('callback should be called in response to the keydown event', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('z', spy);
     expect(spy).toHaveBeenCalledTimes(0);
@@ -51,7 +50,7 @@ describe('useHotkeys: basic', () => {
   });
 
   test('callback should not be called if event.key is not defined and no modifer key is pressed', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('*', spy);
 
@@ -63,7 +62,7 @@ describe('useHotkeys: basic', () => {
   });
 
   test('callback should be called with the KeyboardEvent object', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('z', spy);
     const event = new KeyboardEvent('keydown', { key: 'z' });
@@ -72,7 +71,7 @@ describe('useHotkeys: basic', () => {
   });
 
   test('z key should fire when pressing z', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('z', spy);
     fireKeydownEvent('z');
@@ -80,7 +79,7 @@ describe('useHotkeys: basic', () => {
   });
 
   test('z key should not fire when pressing y', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('z', spy);
     fireKeydownEvent('y');
@@ -88,7 +87,7 @@ describe('useHotkeys: basic', () => {
   });
 
   test('space key should fire when pressing space', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup(' ', spy);
     fireKeydownEvent(' ');
@@ -96,9 +95,9 @@ describe('useHotkeys: basic', () => {
   });
 
   test('hotkeys should not be case sensitive', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
 
     setup('escape', spy1);
     fireKeydownEvent('Escape');
@@ -116,10 +115,10 @@ describe('useHotkeys: basic', () => {
 
 describe('useHotkeys: modifier keys', () => {
   test('modifier+key should fire when pressing modifier+key', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
-    const spy4 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
+    const spy4 = vi.fn();
 
     setup('Control+z', spy1);
     fireKeydownEvent('z', { ctrlKey: true });
@@ -139,7 +138,7 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('multiple modifier keys should work', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('Control+Shift+Alt+z', spy);
     fireKeydownEvent('z', { ctrlKey: true, shiftKey: true, altKey: true });
@@ -147,9 +146,9 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('whitespace between modifier combinations is ignored', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
 
     setup('Control + z', spy1);
     fireKeydownEvent('z', { ctrlKey: true });
@@ -165,8 +164,8 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('z should not fire when Control+z is pressed', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     setup('z', spy1);
     fireKeydownEvent('z', { ctrlKey: true });
@@ -178,8 +177,8 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('Control+z should not fire when Control+Shift+z is pressed', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     setup('Control+z', spy1);
     fireKeydownEvent('z', { ctrlKey: true, shiftKey: true });
@@ -191,8 +190,8 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('Meta+Shift+z should not fire when Meta+z is pressed', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     setup('Meta+Shift+z', spy1);
     fireKeydownEvent('z', { metaKey: true });
@@ -204,8 +203,8 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('The order in which modifier keys are pressed should not matter', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     setup('Shift+Meta+z', spy1);
     fireKeydownEvent('z', { metaKey: true, shiftKey: true });
@@ -217,8 +216,8 @@ describe('useHotkeys: modifier keys', () => {
   });
 
   test('modifier combinations must end with a key', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     setup('Meta+Shift', spy1);
     fireKeydownEvent('', { metaKey: true, shiftKey: true });
@@ -232,7 +231,7 @@ describe('useHotkeys: modifier keys', () => {
 
 describe('useHotkeys: key sequences', () => {
   test('"g i" should fire when "g i" is pressed', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('g i', spy);
     fireKeydownEvent('g');
@@ -241,7 +240,7 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('"g i" should not fire when "i g" is pressed', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('g i', spy);
     fireKeydownEvent('i');
@@ -250,9 +249,9 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('key should not fire when included in sequence', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
 
     setup('g i d', spy1);
     fireKeydownEvent('g');
@@ -268,8 +267,8 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('sequences should be space-separated', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
 
     setup('gi', spy1);
     fireKeydownEvent('g');
@@ -283,9 +282,9 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('extra whitespace in a sequence should be ignored', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
 
     setup('g  i  ', spy1);
     fireKeydownEvent('g');
@@ -304,9 +303,9 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('space key should be wrapped in quotation marks', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
 
     setup('" " g  i', spy1);
     fireKeydownEvent(' ');
@@ -328,10 +327,10 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('sequences should not fire for sub-sequences', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
-    const spy4 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
+    const spy4 = vi.fn();
 
     setup('g i d', spy1);
     fireKeydownEvent('g');
@@ -359,9 +358,9 @@ describe('useHotkeys: key sequences', () => {
   });
 
   test('sequences should not support modifier keys or combos', () => {
-    const spy1 = jest.fn();
-    const spy2 = jest.fn();
-    const spy3 = jest.fn();
+    const spy1 = vi.fn();
+    const spy2 = vi.fn();
+    const spy3 = vi.fn();
 
     setup('Shift i d', spy1);
     fireKeydownEvent('Shift', { shiftKey: true });
@@ -385,8 +384,8 @@ describe('useHotkeys: key sequences', () => {
   test('sequence should timeout', () => {
     // let timer;
 
-    jest.useFakeTimers();
-    const spy = jest.fn();
+    vi.useFakeTimers();
+    const spy = vi.fn();
 
     setup('g i', spy);
     fireKeydownEvent('g');
@@ -396,13 +395,13 @@ describe('useHotkeys: key sequences', () => {
       fireKeydownEvent('i');
     }, 1000);
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     expect(spy).toHaveBeenCalledTimes(0);
   });
 
   test('sequence should not timeout', () => {
-    jest.useFakeTimers();
-    const spy = jest.fn();
+    vi.useFakeTimers();
+    const spy = vi.fn();
 
     setup('g i d', spy);
     fireKeydownEvent('g');
@@ -415,14 +414,14 @@ describe('useHotkeys: key sequences', () => {
       fireKeydownEvent('d');
     }, 900);
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     expect(spy).toHaveBeenCalledTimes(1);
   });
 });
 
 describe('useHotkeys: multiple combinations', () => {
   test('single keys should work', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup(['g', 'i', 'd'], spy);
 
@@ -437,7 +436,7 @@ describe('useHotkeys: multiple combinations', () => {
   });
 
   test('modifier combinations should work', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup(['Control+z', 'Meta+z'], spy);
 
@@ -449,8 +448,8 @@ describe('useHotkeys: multiple combinations', () => {
   });
 
   test('key sequences should work', () => {
-    jest.useFakeTimers();
-    const spy = jest.fn();
+    vi.useFakeTimers();
+    const spy = vi.fn();
 
     setup(['g i d', 't i f'], spy);
 
@@ -466,13 +465,13 @@ describe('useHotkeys: multiple combinations', () => {
       fireKeydownEvent('f');
     }, 1000);
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     expect(spy).toHaveBeenCalledTimes(2);
   });
 
   test('mixed key combinations should work', () => {
-    jest.useFakeTimers();
-    const spy = jest.fn();
+    vi.useFakeTimers();
+    const spy = vi.fn();
 
     setup(['g i d', 'Control+z', 'a'], spy);
 
@@ -489,14 +488,14 @@ describe('useHotkeys: multiple combinations', () => {
       fireKeydownEvent('a');
     }, 1000);
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     expect(spy).toHaveBeenCalledTimes(3);
   });
 });
 
 describe('useHotkeys: escape hatch', () => {
   test('* should fire for all keys', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     setup('*', spy);
     fireKeydownEvent('z');

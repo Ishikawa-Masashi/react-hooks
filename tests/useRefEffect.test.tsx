@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
 import { useRefEffect, RefCallback } from '../src';
+import { describe, it, expect, vi } from 'vitest';
 
 describe('useRefEffect', () => {
   it('maintains ref.current and calls the callback and cleanup functions appropriately', () => {
     // Use a jest.fn to log the calls to callback and cleanup
-    const log = jest.fn<
-      void,
-      [
-        /*event:*/ 'callback' | 'cleanup',
-        /*as:*/ 'div' | 'span',
-        /*ele:*/ HTMLElement
-      ]
-    >();
+    const log =
+      vi.fn<
+        [
+          /*event:*/ 'callback' | 'cleanup',
+          /*as:*/ 'div' | 'span',
+          /*ele:*/ HTMLElement
+        ]
+      >();
 
     let ref: RefCallback<HTMLElement>;
     const TestComponent: React.FunctionComponent<{

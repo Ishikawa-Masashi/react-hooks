@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
+import { it, expect } from 'vitest';
 
 /**
  * Validate that value(s) returned by a hook do not change in identity.

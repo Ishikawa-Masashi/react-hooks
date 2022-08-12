@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import { usePrevious } from '../src';
 
+import { describe, it, expect } from 'vitest';
 describe('usePrevious', () => {
   it('returns previous value', () => {
     let value = 0;

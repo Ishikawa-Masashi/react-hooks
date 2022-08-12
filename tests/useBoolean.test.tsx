@@ -3,6 +3,7 @@ import { act } from 'react-dom/test-utils';
 import { render } from '@testing-library/react';
 import { useBoolean, IUseBooleanCallbacks } from '../src';
 import { validateHookValueNotChanged } from './testUtilities';
+import { describe, it, expect } from 'vitest';
 
 describe('useBoolean', () => {
   it('respects initial value', () => {
