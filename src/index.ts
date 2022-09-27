@@ -8,3 +8,5 @@ export * from './usePrevious';
 export * from './useRefEffect';
 export * from './useResizeObserver';
 export * from './useUnmount';
+export * from './useLatest';
+export * from './useCounter';

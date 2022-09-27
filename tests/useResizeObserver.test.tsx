@@ -4,13 +4,13 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { useResizeObserver } from '../src';
 import { expect, vi, test } from 'vitest';
 
-// window.ResizeObserver = ResizeObserver;
-// (global as any).ResizeObserver = ResizeObserver;
-// global.ResizeObserver = vi.fn().mockImplementation(() => ({
-//   observe: vi.fn(),
-//   unobserve: vi.fn(),
-//   disconnect: vi.fn(),
-// }));
+window.ResizeObserver = ResizeObserver;
+(global as any).ResizeObserver = ResizeObserver;
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
 
 vi.mock('resize-observer-polyfill');
 
