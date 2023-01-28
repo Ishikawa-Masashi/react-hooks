@@ -25,6 +25,7 @@ const resize = (width: number, height: number) => {
   ResizeObserver.mockReset();
   // @ts-ignore
   ResizeObserver.mockImplementation((cb) => {
+    console.log(height);
     cb([{ contentRect: { width, height } }]);
     return { observe: vi.fn, disconnect: vi.fn };
   });

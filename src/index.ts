@@ -10,3 +10,4 @@ export * from './useResizeObserver';
 export * from './useUnmount';
 export * from './useLatest';
 export * from './useCounter';
+export * from './useSetInterval';
