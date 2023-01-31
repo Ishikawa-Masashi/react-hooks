@@ -22,8 +22,13 @@ describe('useLatest()', () => {
     const { rerender } = renderHook(
       ({ fn }) => {
         const latest = useLatest(fn);
+        const onClick = () => latest.current();
+
         React.useEffect(() => {
-          window.addEventListener('click', () => latest.current());
+          window.addEventListener('click', onClick);
+          return () => {
+            window.removeEventListener('click', onClick);
+          };
         }, [latest]);
       },
       {
