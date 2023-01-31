@@ -7,12 +7,15 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import Home from './containers/Home';
+// import Home from './containers/Home';
 
 export default function App() {
   return (
-    // <Router>
-    <Home />
-    // </Router>
+    <div>
+      <Router>
+        {/* <Home /> */}
+        <div></div>
+      </Router>
+    </div>
   );
 }
