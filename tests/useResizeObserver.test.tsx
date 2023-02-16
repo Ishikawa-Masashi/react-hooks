@@ -35,7 +35,7 @@ const resize = (width: number, height: number) => {
 };
 
 test('useResizeObserver', () => {
-  // expect(resize(100, 100)).toBe('200');
+  //   expect(resize(100, 100)).toBe('200');
   expect(resize(100, 100)).toBe('0');
   // expect(resize(200, 200)).toBe('400');
   expect(resize(200, 200)).toBe('0');
