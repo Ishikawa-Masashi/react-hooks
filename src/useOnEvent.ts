@@ -1,5 +1,6 @@
 import React from 'react';
 import { on } from './helpers/dom/on';
+
 /**
  * Hook to attach an event handler on mount and handle cleanup.
  * @param element - Element (or ref to an element) to attach the event handler to

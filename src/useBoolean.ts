@@ -30,7 +30,7 @@ export function useBoolean(
     setValue(false);
   });
   const toggle = useConst(() => () => {
-    setValue(currentValue => !currentValue);
+    setValue((currentValue) => !currentValue);
   });
 
   return [value, { setTrue, setFalse, toggle }];

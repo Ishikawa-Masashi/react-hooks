@@ -11,3 +11,6 @@ export * from './useUnmount';
 export * from './useLatest';
 export * from './useCounter';
 export * from './useSetInterval';
+
+export * from './useDidMount';
+export * from './useResizeObserverRef';
