@@ -1,7 +1,7 @@
 import { describe, test, expect, vi, beforeEach, it } from 'vitest';
 import { renderHook } from '@testing-library/react-hooks';
 import TestRenderer from 'react-test-renderer';
-import { useQueueState } from '../src/useQueueState';
+import { useQueueState } from '../src';
 
 const { act } = TestRenderer;
 
