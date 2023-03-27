@@ -35,7 +35,7 @@ export default defineConfig({
   // https://vitejs.bootcss.com/config/#build-options
   build: {
     lib: {
-      entry: './src/index.tsx',
+      entry: './src/index.ts',
       formats: ['es'],
       fileName: 'index',
     },
